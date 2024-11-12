@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHive - Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="LOG.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Close button that directs to homepage -->
+        <span class="close-btn" onclick="goToHomepage()"><i class="fa-solid fa-xmark"></i></span>
+
+        <div class="login-section">
+            <div class="logo">
+                <img src="cms-icon.png" alt="CMS Icon" width="40" height="40">
+                <h1>CourseHive</h1>
+            </div>
+            <h2>Create Your Account</h2>
+            <p>Fill in the details below to register for a new account.</p>
+            <form id="registerForm" onsubmit="validateRegister(event)">
+                <input type="text" id="fullName" class="input-field" placeholder="Full Name" required>
+                <input type="email" id="registerEmail" class="input-field" placeholder="Enter your email address" required>
+                <input type="password" id="registerPassword" class="input-field" placeholder="Create a password" required>
+                <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm password" required>
+                <button type="submit" class="sub-btn">Register</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to redirect to the homepage
+        function goToHomepage() {
+            window.location.href = 'homepage.html';
+        }
+
+        function validateRegister(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (fullName && email && password && confirmPassword) {
+                // Check if passwords match
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match. Please try again.");
+                    return;
+                }
+
+                // AJAX to send registration data to PHP backend
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "register.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        alert(xhr.responseText); // Display response from backend
+                        if (xhr.responseText == "Registration successful!") {
+                            // Redirect to the login page after successful registration
+                            window.location.href = "login.html";
+                        }
+                    }
+                };
+                xhr.send(`name=${fullName}&email=${email}&password=${password}`);
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
+</body>
+</html>

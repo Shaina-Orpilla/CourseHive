@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHive - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="LOG.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Close button that directs to homepage -->
+        <span class="close-btn" onclick="goToHomepage()"><i class="fa-solid fa-xmark"></i></span>
+
+        <div class="login-section">
+            <div class="logo">
+                <img src="cms-icon.png" alt="CMS Icon" width="40" height="40">
+                <h1>CourseHive</h1>
+            </div>
+            <h2>Login Your Account</h2>
+            <p>Please enter the information you provided at the time of registration.</p>
+            <form id="loginForm" onsubmit="validateLogin(event)">
+                <input type="email" id="loginEmail" class="input-field" placeholder="Enter your email address" required>
+                <input type="password" id="loginPassword" class="input-field" placeholder="Password" required>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                <button type="submit" class="sub-btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to redirect to the homepage
+        function goToHomepage() {
+            window.location.href = 'homepage.html';
+        }
+
+        function validateLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (email && password) {
+                // AJAX to send login data to PHP backend
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "login.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        alert(xhr.responseText); // Display response from backend
+                        if (xhr.responseText == "Login successful!") {
+                            // Redirect to the homepage after successful login
+                            window.location.href = "dashboard.html";
+                        }
+                    }
+                };
+                xhr.send(`email=${email}&password=${password}`);
+            } else {
+                alert("Please enter both email and password.");
+            }
+        }
+    </script>
+</body>
+</html>

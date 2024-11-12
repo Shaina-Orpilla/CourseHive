@@ -1,0 +1,186 @@
+/* Global Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.nav-links a:hover, .nav-links a.btn {
+    background-color: white;
+    color: #007bff;
+}
+
+.nav-links a.btn {
+    font-weight: bold;
+}
+
+/* Hero Section Styling */
+.hero {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+.hero .btn {
+    padding: 10px 20px;
+    background-color: white;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero .btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Featured Courses Section */
+.featured-courses {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.featured-courses h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.course-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.course-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+}
+
+.course-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.course-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.course-card .btn {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.course-card .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Why Choose Us Section */
+#why-choose-us {
+    margin: 40px 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#why-choose-us h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#why-choose-us ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#why-choose-us li {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+}
+
+footer p {
+    margin: 0;
+}
+
+.social-links a {
+    margin: 0 5px;
+    display: inline-block;
+    color: white;
+}
+
+.social-links img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
