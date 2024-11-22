@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CourseHive - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="LOG.css">
+    <link rel="stylesheet" href="LogReg.css">
 </head>
 <body>
     <div class="container">
@@ -25,7 +25,7 @@
                 <a href="#" class="forgot-password">Forgot Password?</a>
                 <button type="submit" class="sub-btn">Login</button>
             </form>
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p>Don't have an account? <a href="REG.html">Register here</a></p>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
             if (email && password) {
                 // AJAX to send login data to PHP backend
                 const xhr = new XMLHttpRequest();
-                xhr.open("POST", "login.php", true);
+                xhr.open("POST", "backend/login.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {

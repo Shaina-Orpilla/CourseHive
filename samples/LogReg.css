@@ -84,6 +84,11 @@ p a:hover {
     font-size: 0.9rem;
 }
 
+.checkbox {
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
 .forgot-password {
     text-align: right;
     color: #00A8CC;

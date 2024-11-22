@@ -1,5 +1,5 @@
 <?php
-require 'config/db.php';
+require 'db.php';
 use MongoDB\BSON\ObjectId;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
