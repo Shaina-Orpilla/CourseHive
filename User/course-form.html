@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHive Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>CourseHive</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="mycourses.html"><i class="fas fa-book"></i> My Courses</a></li>
+            <li><a href="course-form.html"><i class="fas fa-plus"></i> Create Course</a></li>
+            <li><a href="enrolled.html"><i class="fas fa-graduation-cap"></i> Enrolled Courses</a></li>
+            <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="#"><i class="fas fa-user-cog"></i> Profile</a></li>
+            <li><a href="#" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Create a New Course</h1>
+        </div>
+
+        <!-- Course Form Section -->
+        <section id="course-form-section">
+            <form id="course-form" onsubmit="submitCourseForm(event)">
+                <label for="title">Course Title:</label>
+                <input type="text" id="title" name="title" required placeholder="Enter course title here...">
+
+                <label for="description">Course Description:</label>
+                <!-- Rich text editor for description -->
+                <textarea id="description" name="description" required placeholder="Enter course description here..."></textarea>
+
+                <!-- Image Attachment -->
+                <label for="course-image">Upload Course Image:</label>
+                <input type="file" id="course-image" name="course-image" accept="image/*">
+
+                <!-- Body Content Editor: Basic Formatting Options -->
+                <div class="editor-toolbar">
+                    <button type="button" onclick="formatText('bold')" title="Bold"><i class="fas fa-bold"></i></button>
+                    <button type="button" onclick="formatText('italic')" title="Italic"><i class="fas fa-italic"></i></button>
+                    <button type="button" onclick="formatText('underline')" title="Underline"><i class="fas fa-underline"></i></button>
+                    <button type="button" onclick="formatText('justifyLeft')" title="Align Left"><i class="fas fa-align-left"></i></button>
+                    <button type="button" onclick="formatText('justifyCenter')" title="Align Center"><i class="fas fa-align-center"></i></button>
+                    <button type="button" onclick="formatText('justifyRight')" title="Align Right"><i class="fas fa-align-right"></i></button>
+                    <button type="button" onclick="formatText('indent')" title="Increase Indent"><i class="fas fa-indent"></i></button>
+                    <button type="button" onclick="formatText('outdent')" title="Decrease Indent"><i class="fas fa-outdent"></i></button>
+                    <button type="button" onclick="formatText('insertUnorderedList')" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                    <button type="button" onclick="formatText('insertOrderedList')" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                    <button type="button" onclick="insertImage()" title="Insert Image"><i class="fas fa-image"></i></button>
+                    <button type="button" onclick="insertLink()" title="Insert Link"><i class="fas fa-link"></i></button>
+                    <select onchange="changeFontSize(this.value)" title="Change Font Size">
+                        <option value="" disabled selected>Font Size</option>
+                        <option value="1">Small</option>
+                        <option value="3">Normal</option>
+                        <option value="5">Large</option>
+                    </select>
+                </div>
+                
+                
+                <!-- Content Editor -->
+                <div id="content-editor" contenteditable="true" class="editor"></div>
+
+                <button type="submit">Create Course</button>
+            </form>
+        </section>
+    </div>
+
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #0056b3;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .sidebar ul li a:hover {
+            background-color: #003d80;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Course Form Section */
+        #course-form-section {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-size: 16px;
+            color: #333;
+        }
+        input[type="text"], input[type="file"], textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+        #content-editor {
+            min-height: 150px;
+        }
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            margin-bottom: 15px;
+        }
+
+        .editor-toolbar button, .editor-toolbar select {
+            padding: 8px 12px;
+            border: none;
+            background-color: #0056b3;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .editor-toolbar button:hover, .editor-toolbar select:hover {
+            background-color: #003d80;
+        }
+
+        .editor-toolbar button i {
+            font-size: 16px;
+        }
+
+        .editor-toolbar select {
+            font-size: 14px;
+            background-color: #fff;
+            color: #333;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .editor-toolbar button:hover[title]::after, .editor-toolbar select:hover[title]::after {
+            opacity: 1;
+        }
+
+        .editor {
+            font-size: 14px;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-height: 150px;
+            padding: 10px;
+            position: relative;
+        }
+        .editor::before {
+            content: "Write your post content here...";
+            color: #555;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            pointer-events: none;
+        }
+        .editor:empty::before {
+            display: block;
+        }
+        .editor:not(:empty)::before {
+            display: none;
+        }
+        button[type="submit"] {
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #003d80;
+        }
+    </style>
+
+    <script>
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function changeFontSize(size) {
+            document.execCommand("fontSize", false, size);
+        }
+
+        function insertImage() {
+            const url = prompt("Enter the image URL:");
+            if (url) document.execCommand("insertImage", false, url);
+        }
+
+        function insertLink() {
+            const url = prompt("Enter the URL:");
+            if (url) document.execCommand("createLink", false, url);
+        }
+
+        function submitCourseForm(event) {
+            event.preventDefault();
+            // Implement form submission logic here
+            alert('Course Created!');
+        }
+
+        function confirmLogout() {
+            const confirmation = confirm("Are you sure you want to logout?");
+            if (confirmation) {
+                // Redirect to a logout URL or perform logout logic
+                window.location.href = "LOG.html"; // Replace with your logout URL
+            }
+        }
+    </script>
+</body>
+</html>

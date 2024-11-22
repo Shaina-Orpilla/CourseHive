@@ -11,13 +11,13 @@
     <aside class="sidebar">
         <h2>CourseHive</h2>
         <ul>
-            <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-book"></i> My Courses</a></li>
-            <li><a href="#"><i class="fas fa-plus"></i> Create Course</a></li>
-            <li><a href="#"><i class="fas fa-puzzle-piece"></i> Templates</a></li>
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="mycourses.html"><i class="fas fa-book"></i> My Courses</a></li>
+            <li><a href="course-form.html"><i class="fas fa-plus"></i> Create Course</a></li>
+            <li><a href="enrolled.html"><i class="fas fa-graduation-cap"></i> Enrolled Courses</a></li>
             <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
             <li><a href="#"><i class="fas fa-user-cog"></i> Profile</a></li>
-            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li><a href="#" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </aside>
 
@@ -35,22 +35,18 @@
         <!-- Metrics Section -->
         <div class="metrics">
             <div class="metric-card">
-                <h3>468</h3>
-                <p>Total Users</p>
+                <h3>10</h3>
+                <p>Courses Created</p>
             </div>
             <div class="metric-card">
-                <h3>242</h3>
-                <p>Active Courses</p>
-            </div>
-            <div class="metric-card">
-                <h3>142</h3>
-                <p>Courses Completed</p>
+                <h3>50</h3>
+                <p>Courses Enrolled</p>
             </div>
         </div>
 
         <!-- Table Section -->
         <div class="table-section">
-            <h2>Enrolled Courses</h2>
+            <h2>Available Courses</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -84,6 +80,15 @@
         </div>
     </div>
 
+    <script>
+        function confirmLogout() {
+            const confirmation = confirm("Are you sure you want to logout?");
+            if (confirmation) {
+                // Redirect to a logout URL or perform logout logic
+                window.location.href = "LOG.html"; // Replace with your logout URL
+            }
+        }
+    </script>
     <style>
         /* General Styles */
         * {
