@@ -14,7 +14,7 @@
             <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
             <li><a href="users.html"><i class="fas fa-users"></i> User Management</a></li>
             <li><a href="courses.html"><i class="fas fa-book"></i> Course Management</a></li>
-            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li><a href="#" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </nav>
 
@@ -113,6 +113,14 @@
                 xhr.send(`name=${username}&email=${email}&password=${password}`);
             } else {
                 alert("Please fill in all fields.");
+            }
+        }
+
+        function confirmLogout() {
+            const confirmation = confirm("Are you sure you want to logout?");
+            if (confirmation) {
+                // Redirect to a logout URL or perform logout logic
+                window.location.href = "login.html"; // Replace with your logout URL
             }
         }
     </script>
