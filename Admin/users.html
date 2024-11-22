@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHive Admin - Course Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2>CourseHive</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="users.html"><i class="fas fa-users"></i> User Management</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Course Management</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main>
+            <section>
+                <h2>All Users</h2>
+                
+                <!-- Add User Button -->
+                <button class="add-user-btn" onclick="openModal()">Add User <i class="fas fa-plus"></i></button>
+
+                <!-- Users Table -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>JohnDoe</td>
+                            <td>johndoe@example.com</td>
+                            <td>Active</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for User Registration -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+            <div class="login-section">
+                <div class="logo">
+                    <img src="cms-icon.png" alt="CMS Icon" width="40" height="40">
+                    <h1>CourseHive</h1>
+                </div>
+                <h2>Create Account</h2>
+                <p>Fill in the details below to register for a new account.</p>
+                <form id="registerForm" onsubmit="validateRegister(event)">
+                    <input type="text" id="username" class="input-field" placeholder="Username" required>
+                    <input type="email" id="registerEmail" class="input-field" placeholder="Enter your email address" required>
+                    <input type="password" id="registerPassword" class="input-field" placeholder="Create a password" required>
+                    <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm password" required>
+                    <label>
+                        <input type="checkbox" id="termsCheckbox" class="checkbox" required>
+                        <span>I agree to the terms and conditions</span>
+                    </label>
+                    <button type="submit" class="sub-btn">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the modal
+        function openModal() {
+            document.getElementById("userModal").style.display = "flex";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("userModal").style.display = "none";
+        }
+
+        // Register form validation
+        function validateRegister(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsChecked = document.getElementById('termsCheckbox').checked;
+
+            if (username && email && password && confirmPassword) {
+                // Check if passwords match
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match. Please try again.");
+                    return;
+                }
+                if (!termsChecked) {
+                    alert("Please agree to the terms and conditions.");
+                    return;
+                }
+
+                // AJAX to send registration data to PHP backend
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "backend/register.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(`name=${username}&email=${email}&password=${password}`);
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
+
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #0056b3;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .sidebar ul li a:hover {
+            background-color: #003d80;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Add User Button */
+        .add-user-btn {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            position: absolute; 
+            top: 20px; 
+            right: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .add-user-btn:hover {
+            background-color: #003d80;
+        }
+
+        /* Table Section */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        table thead {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+        }
+        table th {
+            font-size: 16px;
+        }
+        table tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+        table td {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 500px;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .login-section, .illustration-section {
+            padding: 40px;
+        }
+
+        .login-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .illustration-section {
+            background-color: #f0f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-left: 10px;
+        }
+
+        .login-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: #ff4d4d; 
+        }
+
+        /* Additional styles for the form */
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .checkbox {
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+        .sub-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .sub-btn:hover {
+            background-color: #003d80;
+        }
+    </style>
+</body>
+</html>

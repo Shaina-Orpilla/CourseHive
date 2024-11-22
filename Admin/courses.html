@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHive Admin - Course Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2>CourseHive</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="users.html"><i class="fas fa-users"></i> User Management</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Course Management</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main>
+            <section>
+                <h2>All Courses</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Title</th>
+                            <th>Creator</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Intro to Web Development</td>
+                            <td>JohnDoe</td>
+                            <td><span style="color: #28a745; font-weight: bold;">Approved</span></td>
+                            <td>
+                                <button class="approve">Approve</button>
+                                <button class="reject">Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Advanced Python</td>
+                            <td>JaneSmith</td>
+                            <td><span style="color: #ffc107; font-weight: bold;">Pending</span></td>
+                            <td>
+                                <button class="approve">Approve</button>
+                                <button class="reject">Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Data Science Basics</td>
+                            <td>AlexM</td>
+                            <td><span style="color: #dc3545; font-weight: bold;">Rejected</span></td>
+                            <td>
+                                <button class="approve">Approve</button>
+                                <button class="reject">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #0056b3;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .sidebar ul li a:hover {
+            background-color: #003d80;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table Section */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        table thead {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+        }
+        table th {
+            font-size: 16px;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+        table td {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Buttons */
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.approve {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        button.reject {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        button:hover {
+            opacity: 0.5;
+        }
+    </style>
+</body>
+</html>
