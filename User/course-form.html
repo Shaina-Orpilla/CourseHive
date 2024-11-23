@@ -44,6 +44,12 @@
 
                 <!-- Body Content Editor: Basic Formatting Options -->
                 <div class="editor-toolbar">
+                    <select onchange="changeFontSize(this.value)" title="Change Font Size">
+                        <option value="" disabled selected>Font Size</option>
+                        <option value="1">Small</option>
+                        <option value="3">Normal</option>
+                        <option value="5">Large</option>
+                    </select>
                     <button type="button" onclick="formatText('bold')" title="Bold"><i class="fas fa-bold"></i></button>
                     <button type="button" onclick="formatText('italic')" title="Italic"><i class="fas fa-italic"></i></button>
                     <button type="button" onclick="formatText('underline')" title="Underline"><i class="fas fa-underline"></i></button>
@@ -56,12 +62,6 @@
                     <button type="button" onclick="formatText('insertOrderedList')" title="Numbered List"><i class="fas fa-list-ol"></i></button>
                     <button type="button" onclick="insertImage()" title="Insert Image"><i class="fas fa-image"></i></button>
                     <button type="button" onclick="insertLink()" title="Insert Link"><i class="fas fa-link"></i></button>
-                    <select onchange="changeFontSize(this.value)" title="Change Font Size">
-                        <option value="" disabled selected>Font Size</option>
-                        <option value="1">Small</option>
-                        <option value="3">Normal</option>
-                        <option value="5">Large</option>
-                    </select>
                 </div>
                 
                 
@@ -72,6 +72,62 @@
             </form>
         </section>
     </div>
+
+    <script>
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function changeFontSize(size) {
+            document.execCommand("fontSize", false, size);
+        }
+
+        function insertImage() {
+            const url = prompt("Enter the image URL:");
+            if (url) document.execCommand("insertImage", false, url);
+        }
+
+        function insertLink() {
+            const url = prompt("Enter the URL:");
+            if (url) document.execCommand("createLink", false, url);
+        }
+
+        function submitCourseForm(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const image = document.getElementById('course-image').files[0];
+            const imageUrl = image ? URL.createObjectURL(image) : '';
+
+            const course = {
+                title: title,
+                description: description,
+                imageUrl: imageUrl,
+                creator: 'You',
+                date: new Date().toISOString(),
+            };
+
+            // Store course data in localStorage
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            courses.push(course);
+            localStorage.setItem('courses', JSON.stringify(courses));
+
+            alert('Course Created!');
+
+            // Clear the form after submission
+            document.getElementById('course-form').reset();
+            document.getElementById('content-editor').innerHTML = ''; // Clear the rich text editor
+        }
+
+        function confirmLogout() {
+            const confirmation = confirm("Are you sure you want to logout?");
+            if (confirmation) {
+                // Redirect to a logout URL or perform logout logic
+                window.location.href = "LOG.html"; // Replace with your logout URL
+            }
+        }
+    </script>
 
     <style>
         /* General Styles */
@@ -246,38 +302,5 @@
         }
     </style>
 
-    <script>
-        function formatText(command) {
-            document.execCommand(command, false, null);
-        }
-
-        function changeFontSize(size) {
-            document.execCommand("fontSize", false, size);
-        }
-
-        function insertImage() {
-            const url = prompt("Enter the image URL:");
-            if (url) document.execCommand("insertImage", false, url);
-        }
-
-        function insertLink() {
-            const url = prompt("Enter the URL:");
-            if (url) document.execCommand("createLink", false, url);
-        }
-
-        function submitCourseForm(event) {
-            event.preventDefault();
-            // Implement form submission logic here
-            alert('Course Created!');
-        }
-
-        function confirmLogout() {
-            const confirmation = confirm("Are you sure you want to logout?");
-            if (confirmation) {
-                // Redirect to a logout URL or perform logout logic
-                window.location.href = "LOG.html"; // Replace with your logout URL
-            }
-        }
-    </script>
 </body>
 </html>

@@ -25,7 +25,7 @@
     <div class="main-content">
         <!-- Header -->
         <div class="header">
-            <h1>Dashboard</h1>
+            <h1>Overview</h1>
             <div class="search-bar">
                 <input type="text" placeholder="Search...">
                 <button><i class="fas fa-search"></i></button>
@@ -57,30 +57,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>#101</td>
-                        <td>Intro to Web Development</td>
-                        <td>120</td>
-                        <td><span class="status approved">Approved</span></td>
-                    </tr>
-                    <tr>
-                        <td>#102</td>
-                        <td>Advanced Python</td>
-                        <td>80</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>#103</td>
-                        <td>Data Science Basics</td>
-                        <td>90</td>
-                        <td><span class="status rejected">Rejected</span></td>
-                    </tr>
+                    <!-- Approved courses will be dynamically inserted here -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
+        // Mock function to simulate fetching course data (replace with an actual API or database fetch)
+        function fetchCourses() {
+            return [
+                { id: "#101", name: "Intro to Web Development", students: 120, status: "Approved" },
+                { id: "#102", name: "Advanced Python", students: 80, status: "Pending" },
+                { id: "#103", name: "Data Science Basics", students: 90, status: "Rejected" },
+                { id: "#104", name: "React for Beginners", students: 150, status: "Approved" }
+            ];
+        }
+
+        // Function to display approved courses in the table
+        function loadApprovedCourses() {
+            const courses = fetchCourses(); // Fetch all courses
+            const approvedCourses = courses.filter(course => course.status === "Approved"); // Filter only approved courses
+
+            const tableBody = document.querySelector(".table tbody");
+            tableBody.innerHTML = ""; // Clear previous rows
+
+            approvedCourses.forEach(course => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${course.id}</td>
+                    <td>${course.name}</td>
+                    <td>${course.students}</td>
+                    <td><span class="status approved">${course.status}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Call the function on page load
+        document.addEventListener("DOMContentLoaded", loadApprovedCourses);
+
         function confirmLogout() {
             const confirmation = confirm("Are you sure you want to logout?");
             if (confirmation) {
@@ -89,6 +105,7 @@
             }
         }
     </script>
+
     <style>
         /* General Styles */
         * {
